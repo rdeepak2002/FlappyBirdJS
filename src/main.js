@@ -82,7 +82,7 @@ const gameLoop = (timestamp) => {
     game.player.draw(game);
 
     // draw score
-    if(game.state === 'PLAYING') {
+    if(game.state === 'PLAYING' || game.state === 'GAME_OVER') {
         game.score.draw(game);
         game.score.update(game);
     }

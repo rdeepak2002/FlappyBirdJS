@@ -8,20 +8,25 @@ class Score {
     }
 
     incrementScore() {
-        this.score++;
-    }
+        this.score += 1;
 
-    update(game) {
         if(this.score > 99) {
             this.score = 99;
         }
     }
 
+    update(game) {
+
+    }
+
     draw(game) {
-        const digit1 = this.score / 10;
+        const digit1 = Math.floor(this.score / 10);
         const digit2 = this.score % 10;
 
         const xPos = game.screenWidth / 2 - (this.scoreDigitWidth * 2 + this.padding) / 2;
+
+        console.log(digit1);
+        console.log(digit2);
 
         game.ctx.drawImage(scoreImages[digit1], xPos, 20);
         game.ctx.drawImage(scoreImages[digit2], xPos + this.padding + this.scoreDigitWidth, 20);

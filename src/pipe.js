@@ -12,6 +12,9 @@ class Pipe {
         this.bottomPipeImage = bottomPipeImage;
         this.gap = gap;
 
+        // flag to count score
+        this.scoreCounted = false;
+
         // velocity of left x pixels per second
         this.xVel = -70;
 
@@ -28,8 +31,15 @@ class Pipe {
             // move pipe to left
             this.x += this.xVel * game.dt;
 
+            // count game score
+            if(!this.scoreCounted && this.x + this.width / 2 <= game.player.x + game.player.width / 2) {
+                game.score.incrementScore();
+                this.scoreCounted = true;
+            }
+
             // if the pipe goes off screen, then move it to the right of the screen
             if(this.x < -1 * this.width) {
+                this.scoreCounted = false;
                 this.x = game.screenWidth + 100;
                 this.randomizeY(game);
             }

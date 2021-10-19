@@ -22,14 +22,20 @@ class Player {
         // jumping speed
         this.jumpSpeed = 150;
 
+        // stop player from jumping
+        this.canJump = true;
+
         // add key press listener
         document.addEventListener('keyup', this.keyPressListener);
         document.addEventListener('click', this.mousePressListener);
     }
 
     jump() {
-        this.velY = -this.jumpSpeed;
-        playWingSound();
+        // dont allow jumping if collided with pipe
+        if(this.canJump) {
+            this.velY = -this.jumpSpeed;
+            playWingSound();
+        }
     }
 
     keyPressListener = (e) => {
