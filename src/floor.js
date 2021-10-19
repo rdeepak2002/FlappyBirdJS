@@ -15,12 +15,14 @@ class Floor {
     }
 
     update(game) {
-        // move floor to left
-        this.x += this.xVel * game.dt;
+        if(game.state === 'PLAYING') {
+            // move floor to left
+            this.x += this.xVel * game.dt;
 
-        // if the floor goes off screen, then move it to the right of the screen
-        if(this.x < -1 * this.width) {
-            this.x = game.screenWidth;
+            // if the floor goes off screen, then move it to the right of the screen
+            if(this.x < -1 * this.width) {
+                this.x = game.screenWidth;
+            }
         }
     }
 

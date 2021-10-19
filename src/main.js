@@ -33,15 +33,21 @@ const resetGame = () => {
         background: backgroundImage,
         player: new Player(screenWidth / 2 - 50, screenHeight / 2, 34, 24),
         pipes: [new Pipe(screenWidth + 100, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200), new Pipe(screenWidth + 300, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200)],
-        floors: [new Floor(0, screenHeight - 112, screenWidth, 112), new Floor(screenWidth, screenHeight - 112, screenWidth, 112)]
+        floors: [new Floor(0, screenHeight - 112, screenWidth, 112), new Floor(screenWidth, screenHeight - 112, screenWidth, 112)],
+        gravity: 300,
+        groundHeight: screenHeight - 112
     };
 }
 
 // function that runs every time a frame is available
 const gameLoop = (timestamp) => {
     // setup the game once
-    if(!game) {
+    if(!game || game.state === 'RESET') {
         resetGame();
+
+        if(game.state === 'RESET') {
+            game.state = 'PLAYING';
+        }
     }
 
     // clear everything from the screen
@@ -60,8 +66,6 @@ const gameLoop = (timestamp) => {
     // draw background
     game.ctx.drawImage(backgroundImage, 0, 0);
 
-    // draw player
-    game.player.draw(game);
 
     // draw and update each pipe
     for(let i = 0; i < game.pipes.length; i++) {
@@ -76,6 +80,11 @@ const gameLoop = (timestamp) => {
         floor.draw(game);
         floor.update(game);
     }
+
+
+    // draw and update player
+    game.player.update(game);
+    game.player.draw(game);
 
     // update the time the game was last updated at
     game.lastUpdated = timestamp;

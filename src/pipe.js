@@ -24,13 +24,15 @@ class Pipe {
     }
 
     update(game) {
-        // move pipe to left
-        this.x += this.xVel * game.dt;
+        if(game.state === 'PLAYING') {
+            // move pipe to left
+            this.x += this.xVel * game.dt;
 
-        // if the pipe goes off screen, then move it to the right of the screen
-        if(this.x < -1 * this.width) {
-            this.x = game.screenWidth + 100;
-            this.randomizeY(game);
+            // if the pipe goes off screen, then move it to the right of the screen
+            if(this.x < -1 * this.width) {
+                this.x = game.screenWidth + 100;
+                this.randomizeY(game);
+            }
         }
     }
 
