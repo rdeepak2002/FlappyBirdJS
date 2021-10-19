@@ -4,6 +4,8 @@
 
 Flappy Bird in the browser
 
+Link to the game: https://flappy-bird-web.herokuapp.com/
+
 ## Author
 
 Deepak Ramalingam
