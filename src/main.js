@@ -56,12 +56,12 @@ const gameLoop = (timestamp) => {
     // get time elapsed in seconds (divide by 1000 since timestamp is in milliseconds and we want seconds)
     game.dt = (timestamp - game.lastUpdated) / 1000;
 
-    // cap delta time, so game does not behave weirdly (if over 20ms pass, then cap at 20ms)
-    const twentyMs = 0.020;
-
-    if(game.dt > twentyMs) {
-        game.dt = twentyMs;
-    }
+    // // cap delta time, so game does not behave weirdly (if over 20ms pass, then cap at 20ms)
+    // const twentyMs = 0.020;
+    //
+    // if(game.dt > twentyMs) {
+    //     game.dt = twentyMs;
+    // }
 
     // draw background
     game.ctx.drawImage(backgroundImage, 0, 0);
