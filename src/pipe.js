@@ -1,6 +1,9 @@
 // import images
 import { topPipeImage, bottomPipeImage } from "./resources.js";
 
+// import collision logic
+import { box2dCollision } from "./utils.js";
+
 // player class
 class Pipe {
     constructor(x, y, width, height, gap, minY, maxY) {
@@ -22,12 +25,44 @@ class Pipe {
         this.minY = minY;
         this.maxY = maxY;
 
+        // check for collision
+        this.checkCollision = true;
+
         // randomize the y position
         this.randomizeY();
     }
 
+    checkCollisions(game) {
+        // get bounding rectangles of top and bottom pipes
+        const totalHeight = this.height * 2 + this.gap;
+
+        const topPipeBoundingRect = {
+            x: this.x,
+            y: this.y - totalHeight / 2,
+            width: this.width,
+            height: this.height,
+        }
+
+        const bottomPipeBoundingRect = {
+            x: this.x,
+            y: this.y - totalHeight / 2  + this.height + this.gap,
+            width: this.width,
+            height: this.height,
+        }
+
+        // game over if player collides with pipe
+        if(this.checkCollision && (box2dCollision(topPipeBoundingRect, game.player) || box2dCollision(bottomPipeBoundingRect, game.player))) {
+            game.state = 'GAME_OVER';
+            this.checkCollision = false;
+            console.log('hit pipe');
+        }
+    }
+
     update(game) {
         if(game.state === 'PLAYING') {
+            // bounding rectangle for collision detection
+            this.checkCollisions(game);
+
             // move pipe to left
             this.x += this.xVel * game.dt;
 

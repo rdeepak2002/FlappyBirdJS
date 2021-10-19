@@ -22,8 +22,8 @@ class Player {
         // jumping speed
         this.jumpSpeed = 150;
 
-        // stop player from jumping
-        this.canJump = true;
+        // flag for hitting ground
+        this.hitGround = false;
 
         // add key press listener
         document.addEventListener('keyup', this.keyPressListener);
@@ -31,11 +31,8 @@ class Player {
     }
 
     jump() {
-        // dont allow jumping if collided with pipe
-        if(this.canJump) {
-            this.velY = -this.jumpSpeed;
-            playWingSound();
-        }
+        this.velY = -this.jumpSpeed;
+        playWingSound();
     }
 
     keyPressListener = (e) => {
@@ -68,10 +65,12 @@ class Player {
             if(game.state === 'PLAYING' && this.y - this.height >= 0) {
                 this.jump();
             }
-            else if(game.state === 'TITLE_SCREEN') {
+
+            if(game.state === 'TITLE_SCREEN') {
                 game.state = 'PLAYING';
             }
-            else if(game.state === 'GAME_OVER') {
+
+            if(game.state === 'GAME_OVER' && this.hitGround) {
                 game.state = 'RESET';
             }
 
@@ -81,10 +80,13 @@ class Player {
         if(this.grounded) {
             // if grounded, stop bird from falling through floor
             this.velY = 0;
-            this.y = game.groundHeight - this.height;
 
-            // game over cuz on ground
-            game.state = 'GAME_OVER';
+            if(!this.hitGround) {
+                // game over cuz hit ground
+                game.state = 'GAME_OVER';
+                this.hitGround = true;
+                console.log('hit ground');
+            }
         }
         else {
             // if not grounded, apply gravity on the bird if you are playing

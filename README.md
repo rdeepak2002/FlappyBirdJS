@@ -24,7 +24,8 @@ Deepak Ramalingam
     │   ├── pipe.js             # code for pipe sprite class
     │   ├── player.js           # code for player sprite class
     │   ├── resources.js        # code for linking resources to classes and methods
-    │   └── score.js            # code for score sprite class
+    │   ├── score.js            # code for score sprite class
+    │   └── utils.js            # code for shared utilities
     ├── index.html              # main webpage for the game
     ├── Procfile                # file for Heroku to run the web app
     ├── package.json            # specifies node modules to install and script to start

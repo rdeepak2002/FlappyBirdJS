@@ -23,14 +23,14 @@ const ctx = canvas.getContext('2d');
 let game = undefined;
 
 // function to reset the state of the game
-const resetGame = () => {
+const resetGame = (timestamp) => {
     game = {
         state: 'TITLE_SCREEN',
         screenWidth: screenWidth,
         screenHeight: screenHeight,
         ctx: ctx,
         dt: 0,
-        lastUpdated: 0,
+        lastUpdated: timestamp,
         background: backgroundImage,
         player: new Player(screenWidth / 2 - 70, screenHeight / 2, 34, 24),
         pipes: [new Pipe(screenWidth + 100, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200), new Pipe(screenWidth + 300, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200)],
@@ -45,12 +45,16 @@ const resetGame = () => {
 // function that runs every time a frame is available
 const gameLoop = (timestamp) => {
     // setup the game once
-    if(!game || game.state === 'RESET') {
-        resetGame();
+    if(!game) {
+        resetGame(timestamp);
+        console.log('setup game');
+    }
 
-        if(game.state === 'RESET') {
-            game.state = 'PLAYING';
-        }
+    // reset game when necessary
+    if(game.state === 'RESET') {
+        resetGame(timestamp);
+        game.state = 'PLAYING';
+        console.log('reset game')
     }
 
     // clear everything from the screen
@@ -92,7 +96,7 @@ const gameLoop = (timestamp) => {
         game.ctx.drawImage(titleScreenImage, screenWidth / 2 - 184 / 2, screenHeight / 2 - 267 / 2 - 35);
     }
 
-    if(game.state === 'GAME_OVER') {
+    if(game.state === 'GAME_OVER' && game.player.hitGround) {
         game.ctx.drawImage(gameOverImage, screenWidth / 2 - 192 / 2, screenHeight / 2 - 42 / 2);
     }
 
