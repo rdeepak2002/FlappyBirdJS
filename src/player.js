@@ -30,9 +30,9 @@ class Player {
     jump() {
         this.velY = -this.jumpSpeed;
 
-        const swooshSound = new Audio();
-        swooshSound.src = 'resources/swoosh.ogg';
-        swooshSound.play();
+        const wingSound = new Audio();
+        wingSound.src = 'resources/wing.ogg';
+        wingSound.play();
     }
 
     keyPressListener = (e) => {

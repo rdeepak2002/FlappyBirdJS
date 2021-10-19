@@ -35,7 +35,8 @@ const resetGame = () => {
         pipes: [new Pipe(screenWidth + 100, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200), new Pipe(screenWidth + 300, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200)],
         floors: [new Floor(0, screenHeight - 112, screenWidth, 112), new Floor(screenWidth, screenHeight - 112, screenWidth, 112)],
         gravity: 300,
-        groundHeight: screenHeight - 112
+        groundHeight: screenHeight - 112,
+        gameSpeed: 1.5
     };
 }
 
@@ -55,6 +56,7 @@ const gameLoop = (timestamp) => {
 
     // get time elapsed in seconds (divide by 1000 since timestamp is in milliseconds and we want seconds)
     game.dt = (timestamp - game.lastUpdated) / 1000;
+    game.dt *= game.gameSpeed;
 
     // // cap delta time, so game does not behave weirdly (if over 20ms pass, then cap at 20ms)
     // const twentyMs = 0.020;
