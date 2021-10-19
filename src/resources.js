@@ -26,5 +26,13 @@ titleScreenImage.src = 'resources/message.png';
 const gameOverImage = new Image();
 gameOverImage.src = 'resources/gameover.png';
 
+// score numbers
+const scoreImages = [];
+for(let i = 0; i < 10; i++) {
+    const scoreImage = new Image();
+    scoreImage.src = `/resources/${i}.png`;
+    scoreImages.push(scoreImage);
+}
+
 // export these variables
-export { backgroundImage, birdMidFlapImage, baseImage, topPipeImage, bottomPipeImage, titleScreenImage, gameOverImage };
+export { backgroundImage, birdMidFlapImage, baseImage, topPipeImage, bottomPipeImage, titleScreenImage, gameOverImage, scoreImages };

@@ -2,6 +2,7 @@
 import Player from './player.js';
 import Pipe from './pipe.js';
 import Floor from './floor.js';
+import Score from './score.js';
 
 // import images
 import { backgroundImage, titleScreenImage, gameOverImage } from "./resources.js";
@@ -34,6 +35,7 @@ const resetGame = () => {
         player: new Player(screenWidth / 2 - 70, screenHeight / 2, 34, 24),
         pipes: [new Pipe(screenWidth + 100, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200), new Pipe(screenWidth + 300, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200)],
         floors: [new Floor(0, screenHeight - 112, screenWidth, 112), new Floor(screenWidth, screenHeight - 112, screenWidth, 112)],
+        score: new Score(),
         gravity: 300,
         groundHeight: screenHeight - 112,
         gameSpeed: 1.5
@@ -58,13 +60,6 @@ const gameLoop = (timestamp) => {
     game.dt = (timestamp - game.lastUpdated) / 1000;
     game.dt *= game.gameSpeed;
 
-    // // cap delta time, so game does not behave weirdly (if over 20ms pass, then cap at 20ms)
-    // const twentyMs = 0.020;
-    //
-    // if(game.dt > twentyMs) {
-    //     game.dt = twentyMs;
-    // }
-
     // draw background
     game.ctx.drawImage(backgroundImage, 0, 0);
 
@@ -82,10 +77,15 @@ const gameLoop = (timestamp) => {
         floor.update(game);
     }
 
-
     // draw and update player
     game.player.update(game);
     game.player.draw(game);
+
+    // draw score
+    if(game.state === 'PLAYING') {
+        game.score.draw(game);
+        game.score.update(game);
+    }
 
     // draw title or game over texts
     if(game.state === 'TITLE_SCREEN') {
