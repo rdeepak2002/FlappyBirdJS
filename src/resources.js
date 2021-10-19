@@ -34,5 +34,12 @@ for(let i = 0; i < 10; i++) {
     scoreImages.push(scoreImage);
 }
 
+// play wing sound
+const playWingSound = () => {
+    const wingSound = new Audio();
+    wingSound.src = 'resources/wing.ogg';
+    return wingSound.play();
+};
+
 // export these variables
-export { backgroundImage, birdMidFlapImage, baseImage, topPipeImage, bottomPipeImage, titleScreenImage, gameOverImage, scoreImages };
+export { backgroundImage, birdMidFlapImage, baseImage, topPipeImage, bottomPipeImage, titleScreenImage, gameOverImage, scoreImages, playWingSound };

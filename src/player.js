@@ -1,5 +1,5 @@
 // import images
-import { birdMidFlapImage } from "./resources.js";
+import { birdMidFlapImage, playWingSound } from "./resources.js";
 
 // player class
 class Player {
@@ -29,10 +29,7 @@ class Player {
 
     jump() {
         this.velY = -this.jumpSpeed;
-
-        const wingSound = new Audio();
-        wingSound.src = 'resources/wing.ogg';
-        wingSound.play();
+        playWingSound();
     }
 
     keyPressListener = (e) => {
