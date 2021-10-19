@@ -30,6 +30,7 @@ const resetGame = (timestamp) => {
         screenHeight: screenHeight,
         ctx: ctx,
         dt: 0,
+        timestamp: timestamp,
         lastUpdated: timestamp,
         background: backgroundImage,
         player: new Player(screenWidth / 2 - 70, screenHeight / 2, 34, 24),
@@ -56,6 +57,9 @@ const gameLoop = (timestamp) => {
         game.state = 'PLAYING';
         console.log('reset game')
     }
+
+    // update timestamp
+    game.timestamp = timestamp;
 
     // clear everything from the screen
     game.ctx.clearRect(0, 0, canvas.width, canvas.height);

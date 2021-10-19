@@ -1,5 +1,8 @@
 // import images
-import { birdMidFlapImage, playWingSound } from "./resources.js";
+import { birdDownFlapImage, birdMidFlapImage, birdUpFlapImage, playWingSound } from "./resources.js";
+
+// import animated sprite
+import { drawAnimatedSprite } from "./utils.js";
 
 // player class
 class Player {
@@ -8,7 +11,7 @@ class Player {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.image = birdMidFlapImage;
+        this.images = [birdDownFlapImage, birdMidFlapImage, birdUpFlapImage];
 
         // check if jumping
         this.jumping = false;
@@ -125,7 +128,12 @@ class Player {
         game.ctx.translate(-centerXCopy, -centerYCopy);
 
         // draw
-        game.ctx.drawImage(this.image, xCopy, yCopy);
+        if(game.state === 'GAME_OVER') {
+            game.ctx.drawImage(this.images[1], xCopy, yCopy);
+        }
+        else {
+            drawAnimatedSprite(game, this.images, this.x, this.y, this.width, this.height);
+        }
 
         // restore canvas so other drawn images are not rotated
         game.ctx.restore();

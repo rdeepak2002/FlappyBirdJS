@@ -2,9 +2,15 @@
 const backgroundImage = new Image();
 backgroundImage.src = 'resources/background-day.png';
 
-// player image
+// player images
+const birdDownFlapImage = new Image();
+birdDownFlapImage.src = 'resources/yellowbird-downflap.png';
+
 const birdMidFlapImage = new Image();
 birdMidFlapImage.src = 'resources/yellowbird-midflap.png';
+
+const birdUpFlapImage = new Image();
+birdUpFlapImage.src = 'resources/yellowbird-upflap.png';
 
 // floor image
 const baseImage = new Image();
@@ -63,4 +69,4 @@ const playPointSound = () => {
 };
 
 // export these variables
-export { backgroundImage, birdMidFlapImage, baseImage, topPipeImage, bottomPipeImage, titleScreenImage, gameOverImage, scoreImages, playWingSound, playHitSound, playPointSound, playDieSound };
+export { backgroundImage, birdDownFlapImage, birdMidFlapImage, birdUpFlapImage, baseImage, topPipeImage, bottomPipeImage, titleScreenImage, gameOverImage, scoreImages, playWingSound, playHitSound, playPointSound, playDieSound };
