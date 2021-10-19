@@ -4,7 +4,7 @@ import Pipe from './pipe.js';
 import Floor from './floor.js';
 
 // import images
-import { backgroundImage } from "./resources.js";
+import { backgroundImage, titleScreenImage, gameOverImage } from "./resources.js";
 
 // get the HTML canvas element
 const canvas = document.getElementById('canvas');
@@ -24,14 +24,14 @@ let game = undefined;
 // function to reset the state of the game
 const resetGame = () => {
     game = {
-        state: 'PLAYING',
+        state: 'TITLE_SCREEN',
         screenWidth: screenWidth,
         screenHeight: screenHeight,
         ctx: ctx,
         dt: 0,
         lastUpdated: 0,
         background: backgroundImage,
-        player: new Player(screenWidth / 2 - 50, screenHeight / 2, 34, 24),
+        player: new Player(screenWidth / 2 - 70, screenHeight / 2, 34, 24),
         pipes: [new Pipe(screenWidth + 100, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200), new Pipe(screenWidth + 300, screenHeight / 2, 52, 320, 100, 100, screenHeight - 200)],
         floors: [new Floor(0, screenHeight - 112, screenWidth, 112), new Floor(screenWidth, screenHeight - 112, screenWidth, 112)],
         gravity: 300,
@@ -66,7 +66,6 @@ const gameLoop = (timestamp) => {
     // draw background
     game.ctx.drawImage(backgroundImage, 0, 0);
 
-
     // draw and update each pipe
     for(let i = 0; i < game.pipes.length; i++) {
         const pipe = game.pipes[i];
@@ -85,6 +84,15 @@ const gameLoop = (timestamp) => {
     // draw and update player
     game.player.update(game);
     game.player.draw(game);
+
+    // draw title or game over texts
+    if(game.state === 'TITLE_SCREEN') {
+        game.ctx.drawImage(titleScreenImage, screenWidth / 2 - 184 / 2, screenHeight / 2 - 267 / 2 - 35);
+    }
+
+    if(game.state === 'GAME_OVER') {
+        game.ctx.drawImage(gameOverImage, screenWidth / 2 - 192 / 2, screenHeight / 2 - 42 / 2);
+    }
 
     // update the time the game was last updated at
     game.lastUpdated = timestamp;

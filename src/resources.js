@@ -18,5 +18,13 @@ topPipeImage.src = 'resources/pipe-green-d.png';
 const bottomPipeImage = new Image();
 bottomPipeImage.src = 'resources/pipe-green-u.png';
 
+// title screen
+const titleScreenImage = new Image();
+titleScreenImage.src = 'resources/message.png';
+
+// game over
+const gameOverImage = new Image();
+gameOverImage.src = 'resources/gameover.png';
+
 // export these variables
-export { backgroundImage, birdMidFlapImage, baseImage, topPipeImage, bottomPipeImage };
+export { backgroundImage, birdMidFlapImage, baseImage, topPipeImage, bottomPipeImage, titleScreenImage, gameOverImage };

@@ -23,7 +23,8 @@ class Player {
         this.jumpSpeed = 150;
 
         // add key press listener
-        document.addEventListener('keypress', this.keyPressListener);
+        document.addEventListener('keyup', this.keyPressListener);
+        document.addEventListener('click', this.mousePressListener);
     }
 
     jump() {
@@ -44,24 +45,26 @@ class Player {
         }
     }
 
+    mousePressListener = () => {
+        this.jumping = true;
+    }
+
     update(game) {
         // update player's y velocity
         this.y += this.velY * game.dt;
 
         // check whether the player is grounded (collided with ground)
-        if(this.y + this.height <= game.groundHeight) {
-            this.grounded = false;
-        }
-        else {
-            this.grounded = true;
-        }
+        this.grounded = this.y + this.height > game.groundHeight;
 
         // jump if necessary and allowed
         if(this.jumping) {
-            if(game.state === 'PLAYING') {
+            if(game.state === 'PLAYING' && this.y - this.height >= 0) {
                 this.jump();
             }
-            else {
+            else if(game.state === 'TITLE_SCREEN') {
+                game.state = 'PLAYING';
+            }
+            else if(game.state === 'GAME_OVER') {
                 game.state = 'RESET';
             }
 
@@ -77,8 +80,10 @@ class Player {
             game.state = 'GAME_OVER';
         }
         else {
-            // if not grounded, apply gravity on the bird
-            this.velY += game.gravity * game.dt;
+            // if not grounded, apply gravity on the bird if you are playing
+            if(game.state !== 'TITLE_SCREEN') {
+                this.velY += game.gravity * game.dt;
+            }
         }
     }
 
@@ -99,8 +104,8 @@ class Player {
         const velRangeMag = Math.abs(minVelY) + Math.abs(maxVelY);
         let degreesToRotate = ( this.velY / velRangeMag ) * 180;
 
-        if(degreesToRotate > 60) {
-            degreesToRotate = 60;
+        if(degreesToRotate > 40) {
+            degreesToRotate = 40;
         }
         else if(degreesToRotate < -30) {
             degreesToRotate = -30;
