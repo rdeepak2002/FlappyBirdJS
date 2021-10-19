@@ -25,9 +25,6 @@ class Score {
 
         const xPos = game.screenWidth / 2 - (this.scoreDigitWidth * 2 + this.padding) / 2;
 
-        console.log(digit1);
-        console.log(digit2);
-
         game.ctx.drawImage(scoreImages[digit1], xPos, 20);
         game.ctx.drawImage(scoreImages[digit2], xPos + this.padding + this.scoreDigitWidth, 20);
     }
