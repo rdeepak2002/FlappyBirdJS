@@ -1,5 +1,5 @@
 // import images
-import { topPipeImage, bottomPipeImage } from "./resources.js";
+import {topPipeImage, bottomPipeImage, playHitSound, playPointSound, playDieSound} from "./resources.js";
 
 // import collision logic
 import { box2dCollision } from "./utils.js";
@@ -54,6 +54,8 @@ class Pipe {
         if(this.checkCollision && (box2dCollision(topPipeBoundingRect, game.player) || box2dCollision(bottomPipeBoundingRect, game.player))) {
             game.state = 'GAME_OVER';
             this.checkCollision = false;
+            playHitSound();
+            playDieSound();
             console.log('hit pipe');
         }
     }
@@ -70,6 +72,7 @@ class Pipe {
             if(!this.scoreCounted && this.x + this.width / 2 <= game.player.x + game.player.width / 2) {
                 game.score.incrementScore();
                 this.scoreCounted = true;
+                playPointSound();
             }
 
             // if the pipe goes off screen, then move it to the right of the screen

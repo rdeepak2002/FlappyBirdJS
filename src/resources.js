@@ -36,10 +36,31 @@ for(let i = 0; i < 10; i++) {
 
 // play wing sound
 const playWingSound = () => {
-    const wingSound = new Audio();
-    wingSound.src = 'resources/wing.ogg';
-    return wingSound.play();
+    const sound = new Audio();
+    sound.src = 'resources/wing.ogg';
+    return sound.play();
+};
+
+// play hit sound
+const playHitSound = () => {
+    const sound = new Audio();
+    sound.src = 'resources/hit.ogg';
+    return sound.play();
+};
+
+// play die sound
+const playDieSound = () => {
+    const sound = new Audio();
+    sound.src = 'resources/die.ogg';
+    return sound.play();
+};
+
+// play point sound
+const playPointSound = () => {
+    const sound = new Audio();
+    sound.src = 'resources/point.ogg';
+    return sound.play();
 };
 
 // export these variables
-export { backgroundImage, birdMidFlapImage, baseImage, topPipeImage, bottomPipeImage, titleScreenImage, gameOverImage, scoreImages, playWingSound };
+export { backgroundImage, birdMidFlapImage, baseImage, topPipeImage, bottomPipeImage, titleScreenImage, gameOverImage, scoreImages, playWingSound, playHitSound, playPointSound, playDieSound };
